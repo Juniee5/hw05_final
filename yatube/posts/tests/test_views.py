@@ -44,19 +44,25 @@ class PostPagesTests(TestCase):
             text='Тест текст для поста',
             author=cls.user,
             group=cls.group,
+            image=uploaded,
         )
         cls.form = PostForm
+
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
+        cache.clear()
 
     def setUp(self):
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
 
-    def check_post_info(self, context):
-        with self.subTest(context=context):
-            self.assertEqual(context.pub_date, self.post.pub_date)
-            self.assertEqual(context.text, self.post.text)
-            self.assertEqual(context.author, self.post.author)
-            self.assertEqual(context.group.id, self.post.group.id)
+    def check_post_info(self, post):
+        with self.subTest(post=post):
+            self.assertEqual(post.text, self.post.text)
+            self.assertEqual(post.author, self.post.author)
+            self.assertEqual(post.group.id, self.post.group.id)
             self.assertEqual(post.image, self.post.image)
 
     def test_forms_show_correct_create(self):

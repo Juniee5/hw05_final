@@ -43,7 +43,6 @@ class PostFormTests(TestCase):
         self.auth_user_comm = Client()
         self.auth_user_comm.force_login(self.comm_author)
 
-
     def test_authorized_user_create_post(self):
         """Проверка создания записи авторизированным ребятам"""
         posts_count = Post.objects.count()
@@ -63,6 +62,7 @@ class PostFormTests(TestCase):
         form_data = {
             'text': 'Текст поста',
             'group': self.group.id,
+            'image': uploaded,
         }
         response = self.authorized_user.post(
             reverse('posts:post_create'),
