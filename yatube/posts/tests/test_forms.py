@@ -104,11 +104,11 @@ class PostFormTests(TestCase):
             response,
             reverse('posts:post_detail', kwargs={'post_id': post.id})
         )
+        post_one = Post.objects.latest('id')
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        post = Post.objects.latest('id')
-        self.assertTrue(post.text == form_data['text'])
-        self.assertTrue(post.author == self.post_author)
-        self.assertTrue(post.group_id == form_data['group'])
+        self.assertEqual(post_one.text, form_data['text'])
+        self.assertEqual(post_one.author, self.post_author)
+        self.assertEqual(post_one.group_id, form_data['group'])
 
     def test_nonauthorized_user_create_post(self):
         """Проверка создания записи не авторизированным гостям"""

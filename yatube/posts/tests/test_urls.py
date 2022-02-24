@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -36,6 +37,7 @@ class StaticURLTests(TestCase):
         self.post_author.force_login(self.user_author)
         self.authorized_not_pages = Client()
         self.authorized_not_pages.force_login(self.another_user)
+        cache.clear()
 
     def test_pages_that_do_not_require_authorization(self):
         """Проверка для страниц не требующии авторизации"""

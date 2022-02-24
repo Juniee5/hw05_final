@@ -58,6 +58,12 @@ TEMPLATES = [
     },
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
 WSGI_APPLICATION = 'yatube.wsgi.application'
 
 
