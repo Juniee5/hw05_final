@@ -260,26 +260,30 @@ class FollowViewsTest(TestCase):
         self.follower_client.post(
             reverse(
                 'posts:profile_unfollow',
-                kwargs={'username': self.post_follower}))
+                kwargs={'username': self.post_follower})
+        )
         self.assertEqual(Follow.objects.count(), count_follow - 1)
 
     def test_follow_on_authors(self):
         """Проверка записей у тех кто подписан."""
         post = Post.objects.create(
             author=self.post_autor,
-            text="Подпишись на меня")
+            text='Подпишись на меня'
+        )
         Follow.objects.create(
             user=self.post_follower,
             author=self.post_autor)
         response = self.author_client.get(
-            reverse('posts:follow_index'))
+            reverse('posts:follow_index')
+        )
         self.assertIn(post, response.context['page_obj'].object_list)
 
     def test_notfollow_on_authors(self):
         """Проверка записей у тех кто не подписан."""
         post = Post.objects.create(
             author=self.post_autor,
-            text="Подпишись на меня")
+            text='Подпишись на меня')
         response = self.author_client.get(
-            reverse('posts:follow_index'))
+            reverse('posts:follow_index')
+        )
         self.assertNotIn(post, response.context['page_obj'].object_list)

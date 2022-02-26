@@ -21,9 +21,11 @@ class StaticURLTests(TestCase):
         )
 
         cls.user_author = User.objects.create_user(
-            username='user_author')
+            username='user_author'
+        )
         cls.another_user = User.objects.create_user(
-            username='another_user')
+            username='another_user'
+        )
 
         cls.post = Post.objects.create(
             text='Больше 15 символов для проверки...',

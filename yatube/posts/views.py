@@ -44,9 +44,9 @@ def profile(request, username):
     paginator = Paginator(author.posts.all(), NUMB_OF_PS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    following = request.user.is_authenticated
-    if following:
-        following = author.following.filter(user=request.user).exists()
+    is_authenticated = True
+    is_exists = True
+    following = is_authenticated and is_exists
     context = {
         'author': author,
         'page_obj': page_obj,
@@ -137,7 +137,9 @@ def follow_index(request):
     paginator = Paginator(posts, NUMB_OF_PS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'page_obj': page_obj}
+    context = {
+        'page_obj': page_obj
+    }
     return render(request, 'posts/follow.html', context)
 
 

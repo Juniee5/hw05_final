@@ -26,7 +26,8 @@ class PostModelTest(TestCase):
             'text': 'Текст поста',
             'pub_date': 'Дата публикации',
             'author': 'Автор',
-            'group': 'Группа', }
+            'group': 'Группа',
+        }
         for value, expected in hey_verboses.items():
             with self.subTest(value=value):
                 verbose_name = self.post._meta.get_field(value).verbose_name
@@ -36,7 +37,8 @@ class PostModelTest(TestCase):
         """Проверка help_text"""
         hey_help_texts = {
             'text': 'Текст нового поста',
-            'group': 'Группа, к которой будет относиться пост', }
+            'group': 'Группа, к которой будет относиться пост',
+        }
         for value, expected in hey_help_texts.items():
             with self.subTest(value=value):
                 help_text = self.post._meta.get_field(value).help_text
@@ -97,8 +99,7 @@ class CommentModelTest(TestCase):
             'author': 'Автор',
             'text': 'Коментарий',
             'created': 'Создан',
-            'updated': 'Обнавлен',
-            'active': 'Активен',
+            'updated': 'Обновлен',
         }
         for value, expected in field_verboses.items():
             with self.subTest(value=value):
